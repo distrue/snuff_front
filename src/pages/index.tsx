@@ -1,7 +1,3 @@
-import logoColor from '../images/logo_white.png';
-import assignment from '../images/assignment.png';
-import user from '../images/user.png';
-
 import today1 from '../images/today_1.png';
 import today2 from '../images/today_2.png';
 import today3 from '../images/today_3.png';
@@ -16,6 +12,9 @@ import swipe from '../images/swipe.png';
 import React from 'react';
 import styled from 'styled-components';
 
+import { default as Header } from '../components/header';
+
+
 export default () => {
   return (
     <div
@@ -28,28 +27,7 @@ export default () => {
         width: '100vw',
       }}
     >
-      <MainStyled>
-        <img
-          src={assignment}
-          style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', left: '5%' }}
-        />
-        <img
-          src={logoColor}
-          style={{
-            objectFit: 'contain',
-            width: '44px',
-            height: '44px',
-            position: 'absolute',
-            top: '4px',
-            left: '50%',
-            transform: 'translate(-50%, 0%)',
-          }}
-        />
-        <img
-          src={user}
-          style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', right: '5%' }}
-        />
-      </MainStyled>
+      <Header />
       <TodayStyled>
         <div className="title">Today</div>
         <div className="subtitle">오늘의 추천 식당을 살펴보세요!</div>
@@ -85,14 +63,6 @@ export default () => {
     </div>
   );
 };
-
-const MainStyled = styled.div`
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 52px;
-  box-shadow: 0pt 1pt 2pt 0pt rgba(0, 0, 0, 0.16);
-`;
 
 const TodayStyled = styled.div`
   display: block;

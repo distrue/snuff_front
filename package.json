@@ -20,16 +20,20 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@reach/router": "1.2.1",
+    "@types/query-string": "6.3.0",
     "firebase": "7.0.0",
     "gatsby": "2.15.12",
     "gatsby-plugin-sass": "2.1.14",
     "gatsby-plugin-typescript": "2.1.7",
     "node-sass": "4.12.0",
+    "query-string": "6.8.3",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "styled-components": "4.4.0"
   },
   "devDependencies": {
+    "@types/": "reach/router",
     "@types/node": "12.7.4",
     "@types/node-sass": "4.11.0",
     "@types/react": "16.9.2",
