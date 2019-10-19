@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "snufffront",
+    "site": "snufoodfighter",
     "public": "public",
     "ignore": [
       "firebase.json",
