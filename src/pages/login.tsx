@@ -1,17 +1,17 @@
 import logoFull from '../images/logocolor.png';
 import kakaoLogin from '../images/kakaoLogin.png';
+import closeBlack from '../images/close_black.png';
 
 import React from 'react';
 import styled from 'styled-components';
 import {AppId, RedirectUri} from '../config';
-
-// <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
 
 export default () => {
   return (
     <div>
       <SimpleHeader>
           <div className="slogan">로그인</div>
+          <img src={closeBlack} className="close" onClick={() => window.history.back()}/>
       </SimpleHeader>
       <MainBlock>
           <div className="title">스누푸파</div>
@@ -43,6 +43,9 @@ const SimpleHeader = styled.div`
         letter-spacing: 0px;
         text-align: center;
         color: #2b2d30;
+    }
+    .close {
+      position: absolute; right: 16px; width: 20px; height: 20px; top: 14px;
     }
 `;
 

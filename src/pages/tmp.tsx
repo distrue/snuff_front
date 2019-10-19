@@ -14,8 +14,6 @@ import styled from 'styled-components';
 
 import { default as Header } from '../components/header';
 
-// <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
-
 export default () => {
   return (
     <div

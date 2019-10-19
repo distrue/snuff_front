@@ -21,7 +21,7 @@ export default withLocation((props: any) => {
   });
   useEffect(() => {
     console.log(props.search.name);
-    Axios.get(`http://snufoodfighter.com:3000/api/ranking?name=${props.search.name}`)
+    Axios.get(`https://www.snufoodfighter.com/api/ranking?name=${props.search.name}`)
       .then((res) => {
         let cal = 1;
         switch (String(res.data.rating.total)) {
