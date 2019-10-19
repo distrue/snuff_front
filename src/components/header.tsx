@@ -5,31 +5,32 @@ import user from '../images/user.png';
 import React from 'react';
 import styled from 'styled-components';
 
-
 export default () => {
-  return (<MainStyled>
-    <img
-      src={assignment}
-      style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', left: '5%' }}
-    />
-    <img
-      src={logoColor}
-      style={{
-        objectFit: 'contain',
-        width: '44px',
-        height: '44px',
-        position: 'absolute',
-        top: '4px',
-        left: '50%',
-        transform: 'translate(-50%, 0%)',
-      }}
-    />
-    <img
-      src={user}
-      style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', right: '5%' }}
-    />
-  </MainStyled>);
-}
+  return (
+    <MainStyled>
+      <img
+        src={assignment}
+        style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', left: '5%' }}
+      />
+      <img
+        src={logoColor}
+        style={{
+          objectFit: 'contain',
+          width: '44px',
+          height: '44px',
+          position: 'absolute',
+          top: '4px',
+          left: '50%',
+          transform: 'translate(-50%, 0%)',
+        }}
+      />
+      <img
+        src={user}
+        style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', right: '5%' }}
+      />
+    </MainStyled>
+  );
+};
 
 const MainStyled = styled.div`
   position: relative;
