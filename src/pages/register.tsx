@@ -1,10 +1,8 @@
 import logoFull from '../images/logocolor.png';
-import kakaoLogin from '../images/kakaoLogin.png';
 import closeBlack from '../images/close_black.png';
 
 import React from 'react';
 import styled from 'styled-components';
-import {AppId, RedirectUri} from '../config';
 import Axios from 'axios';
 import {BackUri} from '../config';
 import withLocation from './withlocation.js';
@@ -12,19 +10,18 @@ import withLocation from './withlocation.js';
 
 export default withLocation((props: any) => {
   React.useEffect(() => {
-    Axios.get(`${BackUri}/kakao_oauth/islogin`, {withCredentials: true})
+    Axios.get(`${BackUri}/kakao_oauth/register`, {withCredentials: true})
     .then((ans) => {
-      if(ans.data.islogin) {
-        window.location.replace('/register');
+      if(ans.data.isRegister === true) {
+        window.location.replace('/');
       }
       console.log(ans.data);
-      console.log(ans.headers);
     })
   }, []);
   return (
     <div>
       <SimpleHeader>
-          <div className="slogan">로그인</div>
+          <div className="slogan">회원가입</div>
           <img src={closeBlack} className="close" onClick={() => window.history.back()}/>
       </SimpleHeader>
       <MainBlock>
@@ -32,10 +29,6 @@ export default withLocation((props: any) => {
           <img src={logoFull} className="logo" />
           <div className="des">수많은 음식점을 거친 스누푸파의 리뷰!</div>
       </MainBlock>
-      <img style={{position: "absolute", top: "420px", left: "50vw", transform: "translate(-50%, 0%)"}}
-        src={kakaoLogin} 
-        onClick={() => window.location.replace(`https://kauth.kakao.com/oauth/authorize?client_id=${AppId}&redirect_uri=${RedirectUri}&response_type=code&scope=gender,talk_message,account_email,age_range,birthday`)}
-      />
     </div>
   );
 });
