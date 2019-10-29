@@ -3,6 +3,7 @@ declare interface Maps {
     LatLng: any;
     Map: any;
     Marker: any;
+    InfoWindow: any;
 }
 
 declare interface KakaoMap {
