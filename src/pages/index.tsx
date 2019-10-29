@@ -19,14 +19,17 @@ export default () => {
     loadScript(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${JSAPIKey}&autoload=false`)
     .then(() => {
       kakao.maps.load(() => {
-        let container = document.getElementById('map');
-        console.log(container);
-        console.log(kakao.maps);
         let options = {
             center: new kakao.maps.LatLng(37.478701, 126.951267),
             level: 4
         };
         let map = new kakao.maps.Map(mapRef.current, options);
+        let marker = new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(37.478701, 126.951267)
+        });
+        marker.setMap(map);
+        // marker.setMap(null); // 제거 의미
       })
     })
     .catch(err => {
