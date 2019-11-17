@@ -15,6 +15,87 @@ export default withLocation((props:any) => {
   const width = useState(0);
   const show = useState(false);
   const isLogin = useState(false);
+  const showMarker = useState([]);
+
+  function multiNodes(options: any) {
+    let map = new kakao.maps.Map(mapRef.current, options);
+    Axios.get(`https://www.snufoodfighter.com/api/eventTgt?eventName=${props.search.eventName}`)
+    .then(res => {
+      console.log(res.data)
+      res.data.participants.map((item:any) => {
+        console.log(item.location, item.name)
+          
+        if(item.location) {
+          let marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(item.location.lat, item.location.lng)
+          });
+          var content = '<div class="wrap" style="position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;line-height: 1.5;">' + 
+            '    <div class="info" style="width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; border: 0;box-shadow: 0px 1px 2px #888;">' + 
+            '        <div class="title" style="padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;">' + 
+            `            ${item.name.match(/^.*\./)}` + 
+            '        </div>' + 
+            '        <div class="body">' + 
+            '            <div class="desc" style="padding: 10px; width: 250px; white-space: normal">' + 
+            `${res.data.reward[item._id]}` + 
+            '            </div>' + 
+            '        </div>' + 
+            '    </div>' +    
+            '</div>';
+          var overlay = new kakao.maps.CustomOverlay({
+            content: content,
+            map: map,
+            position: marker.getPosition()       
+          });
+          kakao.maps.event.addListener(marker, 'click', function() {
+            let tmpShow:any = showMarker[0];
+            let f = tmpShow.findIndex((e:any) => {
+              return e === item.name.match(/^.*\./)[0]
+            });
+            if(f === -1) {
+              overlay.setMap(map);
+              tmpShow.push(item.name.match(/^.*\./)[0]);
+              showMarker[1](tmpShow);
+            }  
+            else {
+              overlay.setMap(null);
+              tmpShow.splice(f, 1);
+              showMarker[1](tmpShow);
+            }
+          });
+          overlay.setMap(null);  
+        }
+        /*
+              let infowindow = new kakao.maps.InfoWindow({
+        map: map,
+        position: new kakao.maps.LatLng(37.478701, 126.951267),
+        content: `<div style="padding:5px;">여러개</div>`
+      });
+        */
+      })
+    })
+  }
+
+  function singleNode(options: any) {
+    if(props.search.lat && props.search.lat !== "undefined") {
+      options.center = new kakao.maps.LatLng(props.search.lat, props.search.lng)
+    }
+    let map = new kakao.maps.Map(mapRef.current, options);
+    if(props.search.lat && props.search.lat !== "undefined") {
+        let infowindow = new kakao.maps.InfoWindow({
+        map: map,
+        position: new kakao.maps.LatLng(props.search.lat, props.search.lng),
+        content: `<div style="padding:5px;">${props.search.name}</div>`
+      });
+    }
+    else {
+      let infowindow = new kakao.maps.InfoWindow({
+        map: map,
+        position: new kakao.maps.LatLng(37.478701, 126.951267),
+        content: `<div style="padding:5px;">준비중</div>`
+      });
+    }
+  }
 
   useEffect(() => {
     loadScript(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${JSAPIKey}&autoload=false`)
@@ -24,23 +105,11 @@ export default withLocation((props:any) => {
             center: new kakao.maps.LatLng(37.478701, 126.951267),
             level: 4
         };
-        if(props.search.lat !== "undefined") {
-          options.center = new kakao.maps.LatLng(props.search.lat, props.search.lng)
-        }
-        let map = new kakao.maps.Map(mapRef.current, options);
-        if(props.search.lat !== "undefined") {
-            let infowindow = new kakao.maps.InfoWindow({
-            map: map,
-            position: new kakao.maps.LatLng(props.search.lat, props.search.lng),
-            content: `<div style="padding:5px;">${props.search.name}</div>`
-          });
+        if(props.search.eventName) {
+          multiNodes(options)
         }
         else {
-          let infowindow = new kakao.maps.InfoWindow({
-            map: map,
-            position: new kakao.maps.LatLng(37.478701, 126.951267),
-            content: `<div style="padding:5px;">준비중</div>`
-          });
+          singleNode(options)
         }
         // infowindow.close();
         /*

@@ -4,6 +4,8 @@ declare interface Maps {
     Map: any;
     Marker: any;
     InfoWindow: any;
+    CustomOverlay: any;
+    event: any;
 }
 
 declare interface KakaoMap {
