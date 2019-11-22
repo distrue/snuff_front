@@ -13,6 +13,28 @@ module.exports = {
       options: {
         displayName: false
       },
-    }
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `SnuFoodFighter`,
+        short_name: `PuPa`,
+        start_url: `/`,
+        background_color: `white`,
+        theme_color: `#1eccf9`,
+        display: `standalone`,
+        icon: `src/images/favicon.png`
+      },
+    },
+    // For the web app manifest to be cached, we'll need to list gatsby-plugin-manifest BEFORE gatsby-plugin-offline.
+    {
+			resolve: `gatsby-plugin-offline`,
+			options: {
+				workboxConfig: {
+					cacheId: `PuPa`,
+				},
+				appendScript: require.resolve(`./src/sw-extension.js`),
+			},
+		}
   ],
 };

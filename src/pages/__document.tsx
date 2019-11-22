@@ -11,7 +11,10 @@ class CustomDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          <title>스누푸파</title>
+          {this.props.styleTags}
+        </Head>
         <body>
           <Main />
           <NextScript />
