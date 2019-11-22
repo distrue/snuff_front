@@ -65,13 +65,6 @@ export default withLocation((props:any) => {
           });
           overlay.setMap(null);  
         }
-        /*
-              let infowindow = new kakao.maps.InfoWindow({
-        map: map,
-        position: new kakao.maps.LatLng(37.478701, 126.951267),
-        content: `<div style="padding:5px;">여러개</div>`
-      });
-        */
       })
     })
   }
@@ -111,14 +104,6 @@ export default withLocation((props:any) => {
         else {
           singleNode(options)
         }
-        // infowindow.close();
-        /*
-        let marker = new kakao.maps.Marker({
-          map: map,
-          position: new kakao.maps.LatLng(37.478701, 126.951267)
-        });
-        marker.setMap(map);*/
-        // marker.setMap(null); // 제거 의미
       })
     })
     .catch(err => {

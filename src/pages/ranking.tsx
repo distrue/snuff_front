@@ -3,11 +3,10 @@ import crown from '../images/crown.png';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Axios from 'axios';
-import { Helmet } from "react-helmet"
+import { Helmet } from 'react-helmet';
 
 import withLocation from './withlocation.js';
 import { default as Header } from '../components/header';
-
 
 export default withLocation((props: any) => {
   let result = useState({
@@ -25,32 +24,45 @@ export default withLocation((props: any) => {
       .then((res) => {
         let cal = 1;
         switch (String(res.data.rating.total)) {
-          case "4.875":
-            cal = 1; break;
-          case "4.75":
-            cal = 3; break;
-          case "4.625":
-            cal = 9; break;
-          case "4.5":
-            cal = 22; break;
-          case "4.375":
-            cal = 48; break;
-          case "4.25":
-            cal = 85; break;
-          case "4.125":
-            cal = 125; break;
-          case "4":
-            cal = 167; break;
-          case "3.875":
-            cal = 201; break;
-          case "3.75":
-            cal = 224; break;
-          case "3.625":
-            cal = 238; break;
-          case "3.5":
-            cal = 243; break;
-          case "3.375":
-            cal = 246; break;
+          case '4.875':
+            cal = 1;
+            break;
+          case '4.75':
+            cal = 3;
+            break;
+          case '4.625':
+            cal = 9;
+            break;
+          case '4.5':
+            cal = 22;
+            break;
+          case '4.375':
+            cal = 48;
+            break;
+          case '4.25':
+            cal = 85;
+            break;
+          case '4.125':
+            cal = 125;
+            break;
+          case '4':
+            cal = 167;
+            break;
+          case '3.875':
+            cal = 201;
+            break;
+          case '3.75':
+            cal = 224;
+            break;
+          case '3.625':
+            cal = 238;
+            break;
+          case '3.5':
+            cal = 243;
+            break;
+          case '3.375':
+            cal = 246;
+            break;
         }
         result[1]({
           taste: res.data.rating.taste,
@@ -59,7 +71,7 @@ export default withLocation((props: any) => {
           service: res.data.rating.service,
           title: res.data.title,
           totScore: res.data.rating.total,
-          ranking: cal
+          ranking: cal,
         });
       })
       .catch((err) => {
@@ -133,181 +145,181 @@ export default withLocation((props: any) => {
 });
 
 const ResultStyle = styled.div`
-      display: block;
-      position: relative;
-      width: 200px;
-      height: 400px;
-      left: -30px;
+  display: block;
+  position: relative;
+  width: 200px;
+  height: 400px;
+  left: -30px;
   .ctr {
-        display: flex;
-      position: absolute;
-      top: 100px;
-      left: 81px;
-      flex-direction: column;
+    display: flex;
+    position: absolute;
+    top: 100px;
+    left: 81px;
+    flex-direction: column;
     .crownicon {
-        position: absolute;
+      position: absolute;
       top: 230px;
       left: -20px;
       width: 21.2px;
       height: 16.2px;
     }
     .dtl {
-        position: relative;
+      position: relative;
       display: block;
       width: 100px;
       height: 30px;
       margin-bottom: 10px;
       .col1 {
         color: #1eccf9;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-    }
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
       .col2 {
         position: absolute;
-      top: 0px;
-      left: 70px;
-    }
+        top: 0px;
+        left: 70px;
+      }
       .col3 {
         position: absolute;
-      top: 0px;
-      left: 85px;
-    }
+        top: 0px;
+        left: 85px;
+      }
       .col4 {
         position: absolute;
-      top: 0px;
-      left: 55px;
-      width: 80px;
-    }
+        top: 0px;
+        left: 55px;
+        width: 80px;
+      }
       .col5 {
         position: absolute;
-      top: -2px;
-      left: 20px;
-      text-align: center;
-      width: 33px;
-      height: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      font-stretch: normal;
-      line-height: 1.2;
-      letter-spacing: -0.01px;
-      text-align: left;
-      color: #000000;
+        top: -2px;
+        left: 20px;
+        text-align: center;
+        width: 33px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: -0.01px;
+        text-align: left;
+        color: #000000;
+      }
     }
   }
-}
   .title {
-        position: absolute;
-      top: 41px;
-      left: 41px;
-      width: 142px;
-      height: 29px;
-      font-size: 24px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.21;
-      letter-spacing: -0.01px;
-      text-align: left;
-      color: #000000;
-    }
+    position: absolute;
+    top: 41px;
+    left: 41px;
+    width: 142px;
+    height: 29px;
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.21;
+    letter-spacing: -0.01px;
+    text-align: left;
+    color: #000000;
+  }
   .normal1 {
-        position: absolute;
-      top: 55px;
-      left: 191px;
-      width: 10px;
-      height: 15px;
-      font-size: 12px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.17;
-      letter-spacing: normal;
-      text-align: left;
-      color: #707070;
-    }
-  `;
+    position: absolute;
+    top: 55px;
+    left: 191px;
+    width: 10px;
+    height: 15px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    text-align: left;
+    color: #707070;
+  }
+`;
 
 const TowerStyle = styled.div`
-    display: block;
-    position: relative;
-    width: 165px;
-    height: 400px;
+  display: block;
+  position: relative;
+  width: 165px;
+  height: 400px;
   .topl {
-        position: absolute;
-      top: 0px;
-      left: 41px;
-      width: 81.5px;
-      height: 200.3px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 0 200px 41px;
-      border-color: transparent transparent #ffffff transparent;
-      -webkit-filter: drop-shadow(-1px -1px 1px rgba(0, 0, 0, 0.5));
-      filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
-    }
+    position: absolute;
+    top: 0px;
+    left: 41px;
+    width: 81.5px;
+    height: 200.3px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 200px 41px;
+    border-color: transparent transparent #ffffff transparent;
+    -webkit-filter: drop-shadow(-1px -1px 1px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
+  }
   .topr {
-        position: absolute;
-      top: 0px;
-      left: 81px;
-      width: 81.5px;
-      height: 200.3px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 41px 200px 0;
-      border-color: transparent transparent #ffffff transparent;
-      -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-      filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
-    }
+    position: absolute;
+    top: 0px;
+    left: 81px;
+    width: 81.5px;
+    height: 200.3px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 41px 200px 0;
+    border-color: transparent transparent #ffffff transparent;
+    -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
+  }
   .downl {
-        position: absolute;
-      top: 200.3px;
-      left: 0px;
-      width: 41px;
-      height: 0;
-      border-style: solid;
-      border-width: 0 0 200px 41px;
-      border-color: transparent transparent #1eccf9 transparent;
-      -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-      filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
-    }
+    position: absolute;
+    top: 200.3px;
+    left: 0px;
+    width: 41px;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 200px 41px;
+    border-color: transparent transparent #1eccf9 transparent;
+    -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
+  }
   .downr {
-        position: absolute;
-      top: 200.3px;
-      left: 81px;
-      width: 41px;
-      height: 0;
-      border-style: solid;
-      border-width: 0 41px 200px 0;
-      border-color: transparent transparent #1eccf9 transparent;
-      -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-      filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
-    }
+    position: absolute;
+    top: 200.3px;
+    left: 81px;
+    width: 41px;
+    height: 0;
+    border-style: solid;
+    border-width: 0 41px 200px 0;
+    border-color: transparent transparent #1eccf9 transparent;
+    -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 3px 6px 0 rgba(0, 0, 0, 0.16));
+  }
   .crownicon {
-        position: absolute;
-      top: 170px;
-      left: 51px;
-      width: 63.6px;
-      height: 48.6px;
-    }
+    position: absolute;
+    top: 170px;
+    left: 51px;
+    width: 63.6px;
+    height: 48.6px;
+  }
   .crowncnt {
-        position: absolute;
-      top: 190px;
-      left: 81px;
-      transform: translate(-50%, 0%);
-      width: 20px;
-      height: 12px;
-      font-family: Handon3gyeopsalOTF600g;
-      font-size: 18px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: 1.17;
-      letter-spacing: normal;
-      text-align: center;
-      color: #ffffff;
-      z-index: 1;
-    }
-  `;
+    position: absolute;
+    top: 190px;
+    left: 81px;
+    transform: translate(-50%, 0%);
+    width: 20px;
+    height: 12px;
+    font-family: Handon3gyeopsalOTF600g;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    z-index: 1;
+  }
+`;
