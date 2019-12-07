@@ -55,10 +55,7 @@ export default () => {
         <div className="des">스와이프하면 지도로 이동합니다.</div>
         <img className="icon" src={swipe} />
       </SwipeUnit>
-      <img
-        src={map}
-        style={{ width: '100%', display: 'block', position: 'fixed', bottom: '0px', left: '0px' }}
-      ></img>
+      <img src={map} style={{ width: '100%', display: 'block', position: 'fixed', bottom: '0px', left: '0px' }}></img>
     </div>
   );
 };
@@ -115,12 +112,7 @@ const TodayStyled = styled.div`
       height: 236px;
       margin-right: 16px;
       position: relative;
-      background-image: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.52),
-        rgba(81, 81, 81, 0),
-        rgba(54, 54, 54, 0.94)
-      );
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.52), rgba(81, 81, 81, 0), rgba(54, 54, 54, 0.94));
       z-index: 1;
       img {
         display: block;

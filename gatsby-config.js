@@ -19,7 +19,7 @@ module.exports = {
       options: {
         name: `SnuFoodFighter`,
         short_name: `PuPa`,
-        start_url: `/`,
+        start_url: `/?pwa=true`,
         background_color: `white`,
         theme_color: `#1eccf9`,
         display: `standalone`,
@@ -31,7 +31,7 @@ module.exports = {
 			resolve: `gatsby-plugin-offline`,
 			options: {
 				workboxConfig: {
-					cacheId: `PuPa`,
+					cacheId: `PuPa1.01`,
 				},
 				appendScript: require.resolve(`./src/sw-extension.js`),
 			},

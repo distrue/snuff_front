@@ -22,6 +22,7 @@
   "dependencies": {
     "@reach/router": "1.2.1",
     "@types/query-string": "6.3.0",
+    "@types/rc-slider": "8.6.5",
     "babel-plugin-styled-components": "1.10.6",
     "firebase": "7.0.0",
     "gatsby": "2.15.12",
@@ -55,6 +56,7 @@
     "eslint-plugin-react": "7.14.3",
     "firebase-tools": "7.4.0",
     "prettier": "1.18.2",
+    "rc-slider": "8.7.1",
     "rimraf": "3.0.0",
     "stylelint": "10.1.0",
     "stylelint-config-recommended": "2.2.0",

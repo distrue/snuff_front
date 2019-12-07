@@ -1,3 +1,5 @@
+console.log("Service Worker Loaded");
+
 function getEndpoint() {
 	return self.registration.pushManager.getSubscription().then((subscription) => {
 		if (subscription) {
@@ -50,3 +52,21 @@ self.addEventListener(
 	},
 	false
 );
+
+self.addEventListener("activate", evt => {
+	// activate 이벤트 발생 시 실행할 이벤트 리스너 등록
+	evt.waitUntil(
+	  caches.keys().then(keyList => {
+		return Promise.all(
+		  keyList.map(key => {
+			if (key !== CACHE_NAME) {
+			  // 캐시의 키가 변했다면
+			  return caches.delete(key);
+			  // 캐시 삭제
+			}
+		  })
+		);
+	  })
+	);
+	self.clients.claim();
+  });

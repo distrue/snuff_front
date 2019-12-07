@@ -1,5 +1,6 @@
+import close from '../images/close_black.png';
+
 import logoColor from '../images/logo_white.png';
-import assignment from '../images/assignment.png';
 import user from '../images/user.png';
 
 import React from 'react';
@@ -8,10 +9,6 @@ import styled from 'styled-components';
 export default () => {
   return (
     <MainStyled>
-      <img
-        src={assignment}
-        style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', left: '5%' }}
-      />
       <img
         src={logoColor}
         style={{
@@ -25,8 +22,9 @@ export default () => {
         }}
       />
       <img
-        src={user}
+        src={close}
         style={{ width: '24px', height: '24px', position: 'absolute', top: '14px', right: '5%' }}
+        onClick={() => (window.location.href = '/')}
       />
     </MainStyled>
   );

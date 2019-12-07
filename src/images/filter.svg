@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="filter" opacity="0.8">
+    <g id="그룹_1577" data-name="그룹 1577">
+      <g id="그룹_1576" data-name="그룹 1576" transform="translate(-20 -508)">
+        <g id="그룹_1574" data-name="그룹 1574" transform="translate(-32)">
+          <rect id="사각형_1589" data-name="사각형 1589" width="24" height="24" transform="translate(52 508)" fill="none"/>
+        </g>
+        <g id="그룹_1575" data-name="그룹 1575">
+          <g id="사각형_1590" data-name="사각형 1590" transform="translate(24 513.5)" fill="none" stroke="#333333" stroke-width="1">
+            <rect width="16" height="2" rx="1" stroke="none"/>
+            <rect x="0.5" y="0.5" width="15" height="1" rx="0.5" fill="none"/>
+          </g>
+          <g id="사각형_1591" data-name="사각형 1591" transform="translate(24 518.5)" fill="none" stroke="#333333" stroke-width="1">
+            <rect width="16" height="2" rx="1" stroke="none"/>
+            <rect x="0.5" y="0.5" width="15" height="1" rx="0.5" fill="none"/>
+          </g>
+          <g id="사각형_1592" data-name="사각형 1592" transform="translate(24 523.5)" fill="none" stroke="#333333" stroke-width="1">
+            <rect width="16" height="2" rx="1" stroke="none"/>
+            <rect x="0.5" y="0.5" width="15" height="1" rx="0.5" fill="none"/>
+          </g>
+        </g>
+      </g>
+      <g id="사각형_1593" data-name="사각형 1593" transform="translate(6 4)" fill="none" stroke="#333333" stroke-width="1">
+        <rect width="2" height="5" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="1" height="4" rx="0.5" fill="none"/>
+      </g>
+      <g id="사각형_1594" data-name="사각형 1594" transform="translate(15 9)" fill="none" stroke="#333333" stroke-width="1">
+        <rect width="2" height="5" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="1" height="4" rx="0.5" fill="none"/>
+      </g>
+      <g id="사각형_1595" data-name="사각형 1595" transform="translate(8 14)" fill="none" stroke="#333333" stroke-width="1">
+        <rect width="2" height="5" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="1" height="4" rx="0.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
