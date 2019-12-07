@@ -1,8 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import search from '../../images/search.png';
 import filter from '../../images/filter.png';
 import home from '../../images/home.png';
-
-import React, { useEffect, useState } from 'react';
 
 import { searchNodes, getQuery } from '../../components/kakaoMap';
 import FilterBox from './filterbox';
@@ -18,7 +17,8 @@ export default ({ mapOn, map, query, showMarker, markers, setMarkers }: any) => 
   const [infoEvent, setEvent] = React.useState('');
 
   function checkOption(type: string, to: string) {
-    let clone, idx;
+    let clone;
+    let idx;
     switch (type) {
       case 'phrase':
         setPhrase(to);
@@ -51,17 +51,18 @@ export default ({ mapOn, map, query, showMarker, markers, setMarkers }: any) => 
       setFilterShow(false);
       setEvent(query.eventName);
     }
-  }, [mapOn]);
+  }, [map, mapOn, markers, query.eventName, query.phrase, setMarkers, showMarker]);
 
   useEffect(() => {
     width[1](window.innerWidth);
-  }, []);
+  }, [width]);
 
   return (
     <SearchBar width={width[0]}>
-      <img src={filter} className="filter" onClick={() => setFilterShow(!filterShow)} />
+      <img alt="" src={filter} className="filter" onClick={() => setFilterShow(!filterShow)} />
       <input value={phrase} onChange={(e) => checkOption('phrase', e.target.value)} />
       <img
+        alt=""
         src={search}
         className="search"
         onClick={() => {
@@ -71,12 +72,24 @@ export default ({ mapOn, map, query, showMarker, markers, setMarkers }: any) => 
       />
       {query.pwa === true ? (
         <div className="install">
-          <img src={home} onClick={() => (window.location.href = '/install')} />
+          <img
+            alt=""
+            src={home}
+            onClick={() => {
+              window.location.href = '/install';
+            }}
+          />
           <div className="desc">웹앱 설치완료</div>
         </div>
       ) : (
         <div className="install">
-          <img src={home} onClick={() => (window.location.href = '/install')} />
+          <img
+            alt=""
+            src={home}
+            onClick={() => {
+              window.location.href = '/install';
+            }}
+          />
           <div className="desc">웹앱 추가</div>
         </div>
       )}

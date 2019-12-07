@@ -1,66 +1,26 @@
 {
-  "env": {
-    "node": true,
-    "commonjs": true,
-    "es6": true,
-    "jest": true,
-    "jasmine": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript"
-  ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "modules": true
-    }
-  },
-  "plugins": ["@typescript-eslint", "prettier", "react"],
+  "extends": ["react-app", "prettier", "airbnb"],
+  "plugins": ["prettier"],
   "rules": {
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "no-console": ["error"],
-    "no-debugger": ["error"],
-    "no-multiple-empty-lines": [
-      "error",
-      {
-        "max": 1,
-        "maxEOF": 1
-      }
-    ],
-    "semi": ["error", "always"],
-    "import/order": ["error", {
-      "groups": ["index", "sibling", "parent", "internal", "external", "builtin"]
+    "prettier/prettier": ["warn"],
+    "react/jsx-filename-extension": 0,
+    "react/jsx-curly-brace-presence": ["always", { "props": "string", "children": "string" }],
+    "max-len": ["error", { "code": 130, "tabWidth": 4 }],
+    "import/no-unresolved": "off",
+    "object-curly-newline": "off",
+    "jsx-a11y/click-events-have-key-events": "ignore",
+    "jsx-a11y/no-noninteractive-element-interactions": "ignore",
+    "react/jsx-one-expression-per-line": "ignore",
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["label"],
+      "labelAttributes": ["htmlFor"],
+      "controlComponents": ["Text"]
     }],
-    "react/prop-types": "off",
-    "react/display-name": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "dot-notation": ["warn", {"allowPattern": "^[a-z]+(_[a-z]+)+$"}],
+    "no-param-reassign": ["error", {"props": false}],
+    "import/extensions":["warn", "never"]
   },
-  "settings": {
-    "import/extensions": [
-      ".js",
-      ".ts",
-      ".tsx",
-      ".css",
-      ".scss"
-    ]
+  "parserOptions": {
+    "project": "tsconfig.json"
   }
 }

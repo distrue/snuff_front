@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// @ts-ignore
 export default styled.div.attrs((props: any) => {})`
   position: absolute;
   top: 20px;

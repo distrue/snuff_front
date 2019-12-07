@@ -1,8 +1,8 @@
 import Axios from 'axios';
 import React from 'react';
 import styled from 'styled-components';
-import { BackUri } from '../config';
 import ReactDOMServer from 'react-dom/server';
+import { BackUri } from '../config';
 
 function overlayItem(item: any) {
   return (
@@ -11,9 +11,16 @@ function overlayItem(item: any) {
         <div className="title">{item.name.match(/^.*\./)}</div>
         <div className="body">
           <div className="desc">
-            맛: {item.rating.taste} / 양: {item.rating.quantity} / 분위기: {item.rating.atmosphere} / 서비스:{' '}
-            {item.rating.service} <br />
-            가격: {item.rating.price} <br /> {item.content.match(/메뉴.*/)[0]}
+            맛:
+            {item.rating.taste}/ 양:
+            {item.rating.quantity}/ 분위기:
+            {item.rating.atmosphere}/ 서비스:
+            {item.rating.service}
+            <br />
+            가격:
+            {item.rating.price}
+            <br />
+            {item.content.match(/메뉴.*/)[0]}
           </div>
         </div>
       </div>
@@ -56,51 +63,44 @@ export function getQuery(
   if (foodtype) askUrl = askUrl.concat(`foodtype=${foodtype}&`);
   if (topValue) askUrl = askUrl.concat(`rating=${topValue}&`);
   if (phrase) askUrl = askUrl.concat(`phrase=${phrase}&`);
-  console.log(askUrl, region, foodtype, topValue, phrase);
-  return Axios.get(askUrl)
-    .then((res) => {
-      for (let item of res.data) {
-        try {
-          if (!item.location || item.location.lat === 0) break;
-          const marker = new kakao.maps.Marker({
-            map: map,
-            position: new kakao.maps.LatLng(item.location.lat, item.location.lng),
-          });
-          markers.push(marker);
-          const content = ReactDOMServer.renderToStaticMarkup(overlayItem(item));
-          const overlay = new kakao.maps.CustomOverlay({
-            content: content,
-            map: map,
-            position: marker.getPosition(),
-          });
-          kakao.maps.event.addListener(marker, 'click', function() {
-            const name: string = item.name.match(/^.*\./)[0];
-            const tmpShow: { [k: string]: any } = showOverlay;
-            if (!tmpShow.hasOwnProperty(name)) {
-              tmpShow[name] = overlay;
-              overlay.setMap(map);
-              console.log(tmpShow);
-              setShowOverlay(tmpShow);
-            } else {
-              overlay.setMap(null);
-              delete tmpShow[name];
-              console.log(tmpShow);
-              setShowOverlay(tmpShow);
-            }
-          });
-          kakao.maps.event.addListener(marker, 'clear', function() {
-            marker.setMap(null);
-          });
-          overlay.setMap(null);
-        } catch (err) {
-          console.log(err);
-        }
+  return Axios.get(askUrl).then((res) => {
+    res.data.forEach((item: any) => {
+      try {
+        if (!item.location || item.location.lat === 0) return;
+        const marker = new kakao.maps.Marker({
+          map,
+          position: new kakao.maps.LatLng(item.location.lat, item.location.lng),
+        });
+        markers.push(marker);
+        const content = ReactDOMServer.renderToStaticMarkup(overlayItem(item));
+        const overlay = new kakao.maps.CustomOverlay({
+          content,
+          map,
+          position: marker.getPosition(),
+        });
+        kakao.maps.event.addListener(marker, 'click', () => {
+          const name: string = item.name.match(/^.*\./)[0];
+          const tmpShow: { [k: string]: any } = showOverlay;
+          if (!Object.prototype.hasOwnProperty.call(tmpShow, name)) {
+            tmpShow[name] = overlay;
+            overlay.setMap(map);
+            setShowOverlay(tmpShow);
+          } else {
+            overlay.setMap(null);
+            delete tmpShow[name];
+            setShowOverlay(tmpShow);
+          }
+        });
+        kakao.maps.event.addListener(marker, 'clear', () => {
+          marker.setMap(null);
+        });
+        overlay.setMap(null);
+      } catch (err) {
+        // don't care error
       }
-      setMarkers(markers);
-    })
-    .catch((err) => {
-      console.log(err.response);
     });
+    setMarkers(markers);
+  });
 }
 
 export function searchNodes(
@@ -113,24 +113,24 @@ export function searchNodes(
   markers: any,
   setMarkers: any,
 ) {
-  const pms = [];
-  for (let marker of markers) {
+  const pms: any[] = [];
+  markers.forEach((marker: any) => {
     try {
       marker.setMap(null);
     } catch (err) {
-      console.log(err);
+      // don't care error
     }
-  }
-  markers = [];
-  for (let item in visible[0]) {
+  });
+  markers.splice(0, markers.length);
+  visible[0].forEach((item: any) => {
     try {
-      visible[0][item].setMap(null);
+      item.setMap(null);
     } catch (err) {
-      console.log(err);
+      // don't care error
     }
-  }
-  for (let region of findRegion) {
-    for (let foodtype of findFoodtype) {
+  });
+  findRegion.forEach((region: string) => {
+    findFoodtype.forEach((foodtype: string) => {
       const pm = getQuery(
         region as string,
         foodtype as string,
@@ -143,44 +143,42 @@ export function searchNodes(
         setMarkers,
       );
       pms.push(pm);
-    }
-  }
+    });
+  });
   Promise.all(pms);
 }
 
 export function eventNodes(options: any, mapRef: any, query: any, visible: any, markers: any, setMarkers: any) {
   const map = new kakao.maps.Map(mapRef.current, options);
   Axios.get(`${BackUri}/api/eventTgt?eventName=${query.eventName}`).then((res) => {
-    res.data.participants.map((item: any) => {
+    res.data.participants.forEach((item: any) => {
       if (item.location) {
-        let marker = new kakao.maps.Marker({
-          map: map,
+        const marker = new kakao.maps.Marker({
+          map,
           position: new kakao.maps.LatLng(item.location.lat, item.location.lng),
         });
         markers.push(marker);
         let content;
         try {
-          content = ReactDOMServer.renderToStaticMarkup(overlayReward(item, res.data.reward[item._id]));
+          content = ReactDOMServer.renderToStaticMarkup(overlayReward(item, res.data.reward[item['_id']]));
         } catch (err) {
           content = '';
         }
-        var overlay = new kakao.maps.CustomOverlay({
-          content: content,
-          map: map,
+        const overlay = new kakao.maps.CustomOverlay({
+          content,
+          map,
           position: marker.getPosition(),
         });
-        kakao.maps.event.addListener(marker, 'click', function() {
+        kakao.maps.event.addListener(marker, 'click', () => {
           const name: string = item.name.match(/^.*\./)[0];
           const tmpShow: { [k: string]: any } = visible[0];
-          if (!tmpShow.hasOwnProperty(name)) {
+          if (!Object.prototype.hasOwnProperty.call(tmpShow, name)) {
             tmpShow[name] = overlay;
             overlay.setMap(map);
-            console.log(tmpShow);
             visible[1](tmpShow);
           } else {
             overlay.setMap(null);
             delete tmpShow[name];
-            console.log(tmpShow);
             visible[1](tmpShow);
           }
         });

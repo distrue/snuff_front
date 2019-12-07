@@ -21,7 +21,14 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
     95: '3.75 (95%)',
     100: '',
   };
-  const markScore: any = { 25: 4.75, 40: 4.5, 60: 4.25, 80: 4.0, 95: 3.75, 100: 3 };
+  const markScore: any = {
+    25: 4.75,
+    40: 4.5,
+    60: 4.25,
+    80: 4.0,
+    95: 3.75,
+    100: 3,
+  };
 
   function checkAll(type: string, e: any) {
     let target: string[] = [];
@@ -33,30 +40,45 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
         target = foodtype;
         break;
     }
-    target.map((item) => {
+    target.forEach((item: any) => {
       const it = document.getElementById(`${type}-${item}`);
       if (e.target.checked) {
-        if (type === 'region' && findRegion.findIndex((ite:any) => ite === region[item]) >= 0) return;
-        if (type === 'foodtype' && findFoodtype.findIndex((ite:any) => ite === item) >= 0) return;
+        if (type === 'region' && findRegion.findIndex((ite: any) => ite === region[item]) >= 0) return;
+        if (type === 'foodtype' && findFoodtype.findIndex((ite: any) => ite === item) >= 0) return;
         if (it !== null && it !== undefined) it.click();
       } else {
-        if (type === 'region' && findRegion.findIndex((ite:any) => ite === region[item]) === -1) return;
-        if (type === 'foodtype' && findFoodtype.findIndex((ite:any) => ite === item) === -1) return;
+        if (type === 'region' && findRegion.findIndex((ite: any) => ite === region[item]) === -1) return;
+        if (type === 'foodtype' && findFoodtype.findIndex((ite: any) => ite === item) === -1) return;
         if (it !== null && it !== undefined) it.click();
       }
     });
   }
 
   return (
-    <div className="filterBox" style={{ display: filterShow ? 'block' : 'none' }}>
+    <div
+      className="filterBox"
+      style={{
+        display: filterShow ? 'block' : 'none',
+      }}
+    >
       <div className="row">지역</div>
       <div className="row">
-        <div className="item" style={{ width: `55px` }}>
-          <input id={`region-all`} type="checkbox" onChange={(e) => checkAll('region', e)} />
-          <label htmlFor={`region-all`}>모두</label>
+        <div
+          className="item"
+          style={{
+            width: '55px',
+          }}
+        >
+          <input id="region-all" type="checkbox" onChange={(e) => checkAll('region', e)} />
+          <label htmlFor="region-all">모두</label>
         </div>
         {Object.keys(region).map((item) => (
-          <div className="item" style={{ width: `${item.length > 2 ? 15 + 18 * item.length : 55}px` }}>
+          <div
+            className="item"
+            style={{
+              width: `${item.length > 2 ? 15 + 18 * item.length : 55}px`,
+            }}
+          >
             <input id={`region-${item}`} type="checkbox" onChange={() => checkOption('region', region[item])} />
             <label htmlFor={`region-${item}`}>{item}</label>
           </div>
@@ -64,21 +86,40 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
       </div>
       <div className="row">종류</div>
       <div className="row">
-        <div className="item" style={{ width: `55px` }}>
-          <input id={`foodtype-all`} type="checkbox" onChange={(e) => checkAll('foodtype', e)} />
-          <label htmlFor={`foodtype-all`}>모두</label>
+        <div
+          className="item"
+          style={{
+            width: '55px',
+          }}
+        >
+          <input id="foodtype-all" type="checkbox" onChange={(e) => checkAll('foodtype', e)} />
+          <label htmlFor="foodtype-all">모두</label>
         </div>
         {foodtype.map((item) => (
-          <div className="item" style={{ width: `${item.length > 2 ? 10 + 20 * item.length : 55}px` }}>
+          <div
+            className="item"
+            style={{
+              width: `${item.length > 2 ? 10 + 20 * item.length : 55}px`,
+            }}
+          >
             <input id={`foodtype-${item}`} type="checkbox" onClick={() => checkOption('foodtype', item)} />
             <label htmlFor={`foodtype-${item}`}>{item}</label>
           </div>
         ))}
       </div>
       <div className="row">점수</div>
-      <div className="row" style={{ height: '60px', marginLeft: '10px' }}>
+      <div
+        className="row"
+        style={{
+          height: '60px',
+          marginLeft: '10px',
+        }}
+      >
         <Slider
-          style={{ width: '180px', height: '40px' }}
+          style={{
+            width: '180px',
+            height: '40px',
+          }}
           min={11}
           marks={marks}
           onChange={(e) => setTopValue(markScore[e])}
@@ -89,15 +130,18 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
       <div className="row">이벤트</div>
       <div className="row">
         <button
+          type="button"
           className="item"
           style={{
-            width: `130px`,
+            width: '130px',
             cursor: 'pointer',
             zIndex: 2,
             border: '1px solid black',
             backgroundColor: infoEvent ? '#ff9014' : '#cccccc',
           }}
-          onClick={() => (infoEvent ? window.location.reload() : (window.location.href = '/?eventName=Su101'))}
+          onClick={() => {
+            infoEvent ? window.location.reload() : (window.location.href = '/?eventName=Su101');
+          }}
         >
           샤이좋은식당
         </button>

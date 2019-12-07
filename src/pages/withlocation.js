@@ -1,18 +1,17 @@
-import React from 'react'
-import { Location } from '@reach/router'
-import queryString from 'query-string'
+import React from 'react';
+import { Location } from '@reach/router';
+import queryString from 'query-string';
 
-const withLocation = ComponentToWrap => props => {
-  return (<Location>
+const withLocation = (ComponentToWrap) => () => (
+  <Location>
     {({ location, navigate }) => (
       <ComponentToWrap
-        {...props}
         location={location}
         navigate={navigate}
         search={location.search ? queryString.parse(location.search) : {}}
       />
     )}
-  </Location>);
-}
+  </Location>
+);
 
 export default withLocation;

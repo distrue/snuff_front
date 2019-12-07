@@ -1,3 +1,5 @@
+import React from 'react';
+import styled from 'styled-components';
 import today1 from '../images/today_1.png';
 import today2 from '../images/today_2.png';
 import today3 from '../images/today_3.png';
@@ -9,56 +11,60 @@ import map from '../images/map.png';
 
 import swipe from '../images/swipe.png';
 
-import React from 'react';
-import styled from 'styled-components';
-
 import { default as Header } from '../components/header';
 
-export default () => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'absolute',
-        top: '0px',
-        left: '0px',
-        width: '100vw',
-      }}
-    >
-      <Header />
-      <TodayStyled>
-        <div className="title">Today</div>
-        <div className="subtitle">오늘의 추천 식당을 살펴보세요!</div>
-        <div className="board">
-          <div className="imgs">
-            <img src={today1} />
-            <div className="title">전주한상차림</div>
-            <div className="score">3.6</div>
-          </div>
-          <div className="imgs">
-            <img src={today2} />
-          </div>
-          <div className="imgs">
-            <img src={today3} />
-          </div>
+export default () => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      width: '100vw',
+    }}
+  >
+    <Header />
+    <TodayStyled>
+      <div className="title">Today</div>
+      <div className="subtitle">오늘의 추천 식당을 살펴보세요!</div>
+      <div className="board">
+        <div className="imgs">
+          <img src={today1} />
+          <div className="title">전주한상차림</div>
+          <div className="score">3.6</div>
         </div>
-      </TodayStyled>
-      <SearchStyled>
-        <div className="title">검색</div>
-        <div className="subtitle">키워드를 사용하여 직접 검색해보세요.</div>
-        <img className="filter" src={filter} />
-        <img className="search" src={search} />
-        <input className="searchBar" placeholder="검색어를 입력하세요." />
-      </SearchStyled>
-      <SwipeUnit>
-        <div className="des">스와이프하면 지도로 이동합니다.</div>
-        <img className="icon" src={swipe} />
-      </SwipeUnit>
-      <img src={map} style={{ width: '100%', display: 'block', position: 'fixed', bottom: '0px', left: '0px' }}></img>
-    </div>
-  );
-};
+        <div className="imgs">
+          <img src={today2} />
+        </div>
+        <div className="imgs">
+          <img src={today3} />
+        </div>
+      </div>
+    </TodayStyled>
+    <SearchStyled>
+      <div className="title">검색</div>
+      <div className="subtitle">키워드를 사용하여 직접 검색해보세요.</div>
+      <img className="filter" src={filter} />
+      <img className="search" src={search} />
+      <input className="searchBar" placeholder="검색어를 입력하세요." />
+    </SearchStyled>
+    <SwipeUnit>
+      <div className="des">스와이프하면 지도로 이동합니다.</div>
+      <img className="icon" src={swipe} />
+    </SwipeUnit>
+    <img
+      src={map}
+      style={{
+        width: '100%',
+        display: 'block',
+        position: 'fixed',
+        bottom: '0px',
+        left: '0px',
+      }}
+    />
+  </div>
+);
 
 const TodayStyled = styled.div`
   display: block;
