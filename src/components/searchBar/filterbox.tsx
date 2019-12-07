@@ -73,7 +73,7 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
           <label htmlFor="region-all">모두</label>
         </div>
         {Object.keys(region).map((item) => (
-          <div
+          <div key={item}
             className="item"
             style={{
               width: `${item.length > 2 ? 15 + 18 * item.length : 55}px`,
@@ -96,7 +96,7 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
           <label htmlFor="foodtype-all">모두</label>
         </div>
         {foodtype.map((item) => (
-          <div
+          <div key={item}
             className="item"
             style={{
               width: `${item.length > 2 ? 10 + 20 * item.length : 55}px`,
@@ -140,7 +140,7 @@ export default ({ filterShow, checkOption, setTopValue, infoEvent, findRegion, f
             backgroundColor: infoEvent ? '#ff9014' : '#cccccc',
           }}
           onClick={() => {
-            infoEvent ? window.location.reload() : (window.location.href = '/?eventName=Su101');
+            infoEvent ? window.location.href="/" : (window.location.href = '/?eventName=Su101');
           }}
         >
           샤이좋은식당

@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import ReactDOMServer from 'react-dom/server';
 import { BackUri } from '../config';
 
-function overlayItem(item: any) {
-  return (
-    <OverlayStyle>
+function overlayItem(item: any, bottomSet: any) {
+  const match = item.content.match(/메뉴.*/gi);
+  return (<OverlayStyle>
       <div className="info">
         <div className="title">{item.name.match(/^.*\./)}</div>
         <div className="body">
@@ -20,15 +20,15 @@ function overlayItem(item: any) {
             가격:
             {item.rating.price}
             <br />
-            {item.content.match(/메뉴.*/)[0]}
+            {match[match.length-1]}
           </div>
         </div>
       </div>
-    </OverlayStyle>
-  );
+    </OverlayStyle>);
 }
 
-function overlayReward(item: any, cnt: string) {
+function overlayReward(item: any, cnt: string, bottomSet: any) {
+  const match = item.content.match(/메뉴.*/gi);
   return (
     <OverlayStyle>
       <div className="info">
@@ -39,7 +39,7 @@ function overlayReward(item: any, cnt: string) {
             <br />
             맛: {item.rating.taste} / 양: {item.rating.quantity} / 분위기: {item.rating.atmosphere} / 서비스:{' '}
             {item.rating.service} <br />
-            가격: {item.rating.price} <br /> {item.content.match(/메뉴.*/)[0]}
+            가격: {item.rating.price} <br /> {match[match.length-1]}
           </div>
         </div>
       </div>
@@ -57,6 +57,7 @@ export function getQuery(
   setShowOverlay: any,
   markers: any,
   setMarkers: any,
+  bottomSet: any
 ) {
   let askUrl = `${BackUri}/api/rcmd?`;
   if (region) askUrl = askUrl.concat(`region=${region}&`);
@@ -72,19 +73,26 @@ export function getQuery(
           position: new kakao.maps.LatLng(item.location.lat, item.location.lng),
         });
         markers.push(marker);
-        const content = ReactDOMServer.renderToStaticMarkup(overlayItem(item));
+        const content = ReactDOMServer.renderToStaticMarkup(overlayItem(item, bottomSet));
         const overlay = new kakao.maps.CustomOverlay({
           content,
           map,
           position: marker.getPosition(),
         });
         kakao.maps.event.addListener(marker, 'click', () => {
-          const name: string = item.name.match(/^.*\./)[0];
+          let name:string="";
+          try {
+            name = item.name.match(/^.*\./)[0];
+          } catch(err) {
+            // don't care error
+          }
           const tmpShow: { [k: string]: any } = showOverlay;
           if (!Object.prototype.hasOwnProperty.call(tmpShow, name)) {
             tmpShow[name] = overlay;
             overlay.setMap(map);
-            setShowOverlay(tmpShow);
+            setShowOverlay(tmpShow); 
+            bottomSet.setBottomCnt(item.content);
+            bottomSet.setBottomImg(item.imgUrls);
           } else {
             overlay.setMap(null);
             delete tmpShow[name];
@@ -112,6 +120,7 @@ export function searchNodes(
   visible: any,
   markers: any,
   setMarkers: any,
+  bottomSet: any
 ) {
   const pms: any[] = [];
   markers.forEach((marker: any) => {
@@ -122,7 +131,7 @@ export function searchNodes(
     }
   });
   markers.splice(0, markers.length);
-  visible[0].forEach((item: any) => {
+  Object.entries(visible[0]).forEach(([key, item]: any) => {
     try {
       item.setMap(null);
     } catch (err) {
@@ -141,6 +150,7 @@ export function searchNodes(
         visible[1],
         markers,
         setMarkers,
+        bottomSet
       );
       pms.push(pm);
     });
@@ -148,7 +158,7 @@ export function searchNodes(
   Promise.all(pms);
 }
 
-export function eventNodes(options: any, mapRef: any, query: any, visible: any, markers: any, setMarkers: any) {
+export function eventNodes(options: any, mapRef: any, query: any, visible: any, markers: any, setMarkers: any, bottomSet:any) {
   const map = new kakao.maps.Map(mapRef.current, options);
   Axios.get(`${BackUri}/api/eventTgt?eventName=${query.eventName}`).then((res) => {
     res.data.participants.forEach((item: any) => {
@@ -160,7 +170,7 @@ export function eventNodes(options: any, mapRef: any, query: any, visible: any, 
         markers.push(marker);
         let content;
         try {
-          content = ReactDOMServer.renderToStaticMarkup(overlayReward(item, res.data.reward[item['_id']]));
+          content = ReactDOMServer.renderToStaticMarkup(overlayReward(item, res.data.reward[item['_id']], bottomSet));
         } catch (err) {
           content = '';
         }
@@ -175,6 +185,8 @@ export function eventNodes(options: any, mapRef: any, query: any, visible: any, 
           if (!Object.prototype.hasOwnProperty.call(tmpShow, name)) {
             tmpShow[name] = overlay;
             overlay.setMap(map);
+            bottomSet.setBottomCnt(item.content);
+            bottomSet.setBottomImg(item.imgUrls);
             visible[1](tmpShow);
           } else {
             overlay.setMap(null);

@@ -7,7 +7,7 @@ import { searchNodes, getQuery } from '../../components/kakaoMap';
 import FilterBox from './filterbox';
 import SearchBar from './style';
 
-export default ({ mapOn, map, query, showMarker, markers, setMarkers }: any) => {
+export default ({ mapOn, map, query, showMarker, markers, setMarkers, bottomSet }: any) => {
   const width = useState(0);
   const [phrase, setPhrase] = useState('');
   const [filterShow, setFilterShow] = useState(true);
@@ -43,7 +43,7 @@ export default ({ mapOn, map, query, showMarker, markers, setMarkers }: any) => 
   useEffect(() => {
     if (query.phrase) {
       setPhrase(query.phrase);
-      getQuery('', '', 0, query.phrase, map, showMarker[0], showMarker[1], markers, setMarkers).then(() => {
+      getQuery('', '', 0, query.phrase, map, showMarker[0], showMarker[1], markers, setMarkers, bottomSet).then(() => {
         setFilterShow(false);
       });
     }
@@ -66,7 +66,7 @@ export default ({ mapOn, map, query, showMarker, markers, setMarkers }: any) => 
         src={search}
         className="search"
         onClick={() => {
-          searchNodes(map, findRegion, findFoodtype, topValue, phrase, showMarker, markers, setMarkers);
+          searchNodes(map, findRegion, findFoodtype, topValue, phrase, showMarker, markers, setMarkers, bottomSet);
           setEvent('');
         }}
       />
