@@ -6,7 +6,8 @@ import { BackUri } from '../config';
 
 function overlayItem(item: any, bottomSet: any) {
   const match = item.content.match(/메뉴.*/gi);
-  return (<OverlayStyle>
+  return (
+    <OverlayStyle>
       <div className="info">
         <div className="title">{item.name.match(/^.*\./)}</div>
         <div className="body">
@@ -20,11 +21,12 @@ function overlayItem(item: any, bottomSet: any) {
             가격:
             {item.rating.price}
             <br />
-            {match[match.length-1]}
+            {match[match.length - 1]}
           </div>
         </div>
       </div>
-    </OverlayStyle>);
+    </OverlayStyle>
+  );
 }
 
 function overlayReward(item: any, cnt: string, bottomSet: any) {
@@ -39,7 +41,7 @@ function overlayReward(item: any, cnt: string, bottomSet: any) {
             <br />
             맛: {item.rating.taste} / 양: {item.rating.quantity} / 분위기: {item.rating.atmosphere} / 서비스:{' '}
             {item.rating.service} <br />
-            가격: {item.rating.price} <br /> {match[match.length-1]}
+            가격: {item.rating.price} <br /> {match[match.length - 1]}
           </div>
         </div>
       </div>
@@ -57,7 +59,7 @@ export function getQuery(
   setShowOverlay: any,
   markers: any,
   setMarkers: any,
-  bottomSet: any
+  bottomSet: any,
 ) {
   let askUrl = `${BackUri}/api/rcmd?`;
   if (region) askUrl = askUrl.concat(`region=${region}&`);
@@ -80,17 +82,17 @@ export function getQuery(
           position: marker.getPosition(),
         });
         kakao.maps.event.addListener(marker, 'click', () => {
-          let name:string="";
+          let name: string = '';
           try {
             name = item.name.match(/^.*\./)[0];
-          } catch(err) {
+          } catch (err) {
             // don't care error
           }
           const tmpShow: { [k: string]: any } = showOverlay;
           if (!Object.prototype.hasOwnProperty.call(tmpShow, name)) {
             tmpShow[name] = overlay;
             overlay.setMap(map);
-            setShowOverlay(tmpShow); 
+            setShowOverlay(tmpShow);
             bottomSet.setBottomCnt(item.content);
             bottomSet.setBottomImg(item.imgUrls);
           } else {
@@ -120,7 +122,7 @@ export function searchNodes(
   visible: any,
   markers: any,
   setMarkers: any,
-  bottomSet: any
+  bottomSet: any,
 ) {
   const pms: any[] = [];
   markers.forEach((marker: any) => {
@@ -150,7 +152,7 @@ export function searchNodes(
         visible[1],
         markers,
         setMarkers,
-        bottomSet
+        bottomSet,
       );
       pms.push(pm);
     });
@@ -158,7 +160,7 @@ export function searchNodes(
   Promise.all(pms);
 }
 
-export function eventNodes(options: any, mapRef: any, query: any, visible: any, markers: any, setMarkers: any, bottomSet:any) {
+export function eventNodes(options: any, mapRef: any, query: any, visible: any, markers: any, setMarkers: any, bottomSet: any) {
   const map = new kakao.maps.Map(mapRef.current, options);
   Axios.get(`${BackUri}/api/eventTgt?eventName=${query.eventName}`).then((res) => {
     res.data.participants.forEach((item: any) => {
